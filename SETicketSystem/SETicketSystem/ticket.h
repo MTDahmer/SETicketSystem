@@ -4,9 +4,11 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <ctime>
 class ticket {
 private:
 	int ticketID;
+	std::string title;
 	std::string customer;
 	std::string dateCreated;
 	std::string repairedItem;
@@ -19,6 +21,21 @@ public:
 	std::string technician;
 	std::vector < std::string> workentryList;
 	std::vector < std::string> charges;
+
+	ticket() {
+		std::cout << "Enter title of ticket: \n";
+		std::cin >> title;
+		std::cout >> "Enter a brief description of the issue: \n";
+		std::cin >> description;
+		std::cout >> "Enter the name of the client: \n";
+		time_t now = time(0);
+		dateCreated = now;
+		ticketID = ticketIDGenerator(now, client);
+		std::cout << "Enter a description of the item to be repaired: \n";
+		std::cin >> repairedItem;
+		status = "Awaiting Assignment";
+		//Storeticket function
+	}
 
 };
 

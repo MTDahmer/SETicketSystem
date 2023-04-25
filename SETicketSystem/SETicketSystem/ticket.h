@@ -115,7 +115,7 @@ string changeStatus() {
 	return newStatus;
 }
 //+ callAddCharge()
-chargeObject callAddCharge(ticketID) {
-	addCharge(ticketID)
+charge callAddCharge(ticketID) {
+	return charge;
 }
 #endif

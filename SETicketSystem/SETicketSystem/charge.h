@@ -4,19 +4,20 @@
 #include <string>
 #include <vector>
 #include <iostream>
+using namespace std;
 class charge {
 private:
-	std::string name;
+	string name;
 	float price;
-	std::string description;
+	string description;
 
 	charge() {
-		std::cout << "Enter name of charge: \n";
-		std::cin >> name;
-		std::cout << "Enter the cost of the charge: \n";
-		std::cin >> price;
-		std::cout << "Enter a description of the charge \n";
-		std::cin >> description;
+		cout << "Enter name of charge: \n";
+		cin >> name;
+		cout << "Enter the cost of the charge: \n";
+		cin >> price;
+		cout << "Enter a description of the charge \n";
+		cin >> description;
 	};
 
 };

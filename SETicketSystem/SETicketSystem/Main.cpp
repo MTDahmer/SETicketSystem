@@ -8,5 +8,5 @@ when needed. This way all classes will exist as seperate objects*/
 #include "ticket.h"
 
 int main() {
-
+	
 }

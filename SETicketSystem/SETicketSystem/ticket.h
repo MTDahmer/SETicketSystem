@@ -68,17 +68,18 @@ public:
 //for specific information. For a key, see the ticketValueReplace function as the switch statement there corresponds to what
 //line is used for which peice of data
 string ticketValueGrab(int ticketID, int line) {
-	ifstream requestedFile;
+	ifstream requestedFile; 
 	fileName = "/Tickets/" + ticketID;
-	requestedFile.open(fileName);
+	requestedFile.open(fileName); // Opens a file object that exists in the tickets folder with the requested ticketID
 	string value;
 	int count = 0;
-	while (getline(requestedFile), value) {
+	while (getline(requestedFile), value) { //starts the reading loop that continues line by line until it fines the corresponding line
 		if (count == line) {
-			value = value.substr(value.find(":") + 1);
-			return value;
+			value = value.substr(value.find(":") + 1);//Grabs the value at the determined line, then strips everything before the colon so it only grabs the info
+			requestedFile.close(); //closes files as looping is done.
+			return value; //return value stops here
 		}
-		count++
+		count++ //increases count if line not reached yet
 	}
 }
 
@@ -89,15 +90,15 @@ string ticketValueGrab(int ticketID, int line) {
 // and the duplication continues next line
 void ticketValueReplace(int ticketID, int line, string data) {
 	ofstream requestedFile, newFile;
-	fileName = "/Tickets/" + ticketID;
-	tempFileName = "/Tickets/" + ticketID + "Temp";
-	requestedFile.open(fileName);
-	newFile.open(tempFileName);
+	fileName = "/Tickets/" + ticketID; 
+	tempFileName = "/Tickets/" + ticketID + "Temp"; 
+	requestedFile.open(fileName); //opens the current file being requested
+	newFile.open(tempFileName);// creates a new temporary file with a name similar to the other one for information to be copied to
 	string value;
 	int count;
 	string prefix;
-	switch (line) {
-	case 0:
+	switch (line) { //This switch statement is so that the new statement given to the file has the correct prefix. 
+	case 0:			//This allows us to avoid the issue of having stripped the descriptor off the original value
 		prefix = "Title: ";
 		break;
 	case 1:
@@ -128,19 +129,19 @@ void ticketValueReplace(int ticketID, int line, string data) {
 		prefix = "Work Entries: ";
 		break;
 	}
-	while (getline(requestedFile), value) {
-		if (count == line) {
-			newFile << prefix << data;
+	while (getline(requestedFile), value) { //begins reading loop for the files line by line
+		if (count == line) { //Calls if its the line we are looking for
+			newFile << prefix << data; //writes the prefix decided earlier and the new information to the file
 		}
 		else {
-			newFile << value;
+			newFile << value; //Writes whatever the current value read from the files is to the same position in the file
 		}
-		count++
+		count++ //ups the count for tracking purposes
 	}
-	fileName.close();
-	old = fileName + "old";
-	rename(fileName, old);
-	rename(tempFileName, fileName);
+	fileName.close(); //closes old file
+	old = fileName + "old"; //sets up name for files removal
+	rename(fileName, old); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
+	rename(tempFileName, filename); //renames new file to match old file to transition is to being the default file
 
 }
 
@@ -148,28 +149,27 @@ void ticketValueReplace(int ticketID, int line, string data) {
 //for allowing the user to either completely rewrite or append to the end of a value
 //This function exists to handle and all changes to the ticket
 string changeValue(string value) {
-	cout << "Edit current value or append? \n 1. Append \n 2. Edit \n";
+	cout << "Edit current value or append? \n 1. Append \n 2. Edit \n"; //
 	int choice;
 	string userEntry;
-	cin >> choice;
+	cin >> choice; //takes in user choice of action
 	bool loop = true;
-	while (loop) {
+	while (loop) { //verification while loop to make sure user enters the correct info
 		if (choice == 1) {
 			cout << "Please enter the statement to append to the current value \n";
 			cin >> userEntry;
-			value = value + userEntry;
-			loop = false;
-			return value;
+			value = value +" "+ userEntry; //takes users entry, adds a space for formatting and replaces the value with the concatenated version
+			loop = false; //ends loop
+			return value; //returns new value to function
 		}
 		else if (choice == 2) {
-			cout << value;
 			cout << "Please enter a new value";
-			cin >> value;
-			loop = false;
-			return value;
+			cin >> value; //in contrast to other function, replaces the value outright
+			loop = false;//closes loop
+			return value;// returns replaced value
 
 		}
-		else {
+		else { //continues loop if user chooses incorrectly
 			cout << "Invalid Selection. Please only enter the numbers listed as options";
 		}
 	}
@@ -177,12 +177,13 @@ string changeValue(string value) {
 
 //Change Push, Mitchell Dahmer, written 4/27
 //for calling the various change function, getting the current values of what is being changed, 
-//and pushing the new data when done
+//and pushing the new data after calling the changing function
 void pushChange(int ticketID, int line) {
-	bool loop = true;
+	bool loop1 = true;
+	bool loop2 = true;
 	int choice;
 	string value;
-	switch (line) {
+	switch (line) { //A switch for making sure the statements put out to the user properly reflect what they are changing
 	case 0:
 		value = "Title";
 		break;
@@ -214,6 +215,31 @@ void pushChange(int ticketID, int line) {
 		value = "Work Entries";
 		break;
 	}
+	string currentValue = ticketValueGrab(ticketID, line); //calls reveiw function to get current value user is wanting to edit
+	cout << "Current " << value << " for Ticket " << ticketID << "\n" << currentValue << "\n"; //displays current value
+	while (loop1) { 
+		string newValue = changeValue(currentValue); //Calls changing function to get new value 
+		cout << "New " << value << " for Ticket " << ticketID << "\n" << newValue << "\n"; //displays user new value for checking
+		loop2 = true;//sets loop2 to true so that edit choice loop can run again after retry
+		while (loop2) {
+			cout << "Keep New " << value << " or Edit Again ? (1 for KEEP, 2 for EDIT)"; //Allows user to restart if mistakes were made
+			cin << choice;
+			if (choice == 2) { //if user wants to restart, this sends back to the front of the loop and lets them try again
+				loop1 = true;
+				loop2 = false;
+			}
+			else if (choice == 1) { //if user is fine, ends loop and sends to push
+				loop1 = false;
+				loop2 = false;
+			}
+			else {
+				cout << "Invalid Selection \n"; //if user messes up, keeps them in the loop
+				loop1 = true;
+				loop2 = true;
+			}
+		}
+	}
+	ticketValueReplace(ticketID, line, newValue); //send the value to the replace function to put the change into place
 }
 
 #endif

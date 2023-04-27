@@ -149,6 +149,7 @@ void ticketValueReplace(int ticketID, int line, string data) {
 //for allowing the user to either completely rewrite or append to the end of a value
 //This function exists to handle and all changes to the ticket
 string changeValue(string value) {
+
 	cout << "Edit current value or append? \n 1. Append \n 2. Edit \n"; //
 	int choice;
 	string userEntry;
@@ -216,7 +217,7 @@ void pushChange(int ticketID, int line) {
 		break;
 	}
 	string currentValue = ticketValueGrab(ticketID, line); //calls reveiw function to get current value user is wanting to edit
-	cout << "Current " << value << " for Ticket " << ticketID << "\n" << currentValue << "\n"; //displays current value
+	
 	while (loop1) { 
 		string newValue = changeValue(currentValue); //Calls changing function to get new value 
 		cout << "New " << value << " for Ticket " << ticketID << "\n" << newValue << "\n"; //displays user new value for checking

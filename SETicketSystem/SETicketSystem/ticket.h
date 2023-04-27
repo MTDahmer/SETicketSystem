@@ -144,32 +144,37 @@ void ticketValueReplace(int ticketID, int line, string data) {
 
 }
 
-//Description Change, Mitchell Dahmer, Written 4/18
-//for taking in the new description as requested by user
-string changeDescription(string description) {
-	cout << "Edit current description or append statement? \n 1. Append \n 2. Edit \n";
+//Value Change, Mitchell Dahmer, Written 4/18, edited 4/27 to be broader purpose
+//for allowing the user to either completely rewrite or append to the end of a value
+//This function exists to handle and all changes to the ticket
+string changeValue(string value) {
+	cout << "Edit current value or append? \n 1. Append \n 2. Edit \n";
 	int choice;
-	string newDesc;
+	string userEntry;
 	cin >> choice;
 	bool loop = true;
 	while (loop) {
 		if (choice == 1) {
-			cout << "Please enter the statement to append to the current description \n";
-			cin >> newDesc;
-			description = description + newDesc;
-			return description;
+			cout << "Please enter the statement to append to the current value \n";
+			cin >> userEntry;
+			value = value + userEntry;
+			loop = false;
+			return value;
 		}
 		else if (choice == 2) {
-			cout << description;
-			cout << "Please enter a new description";
-			cin >> newDesc;
-			return newDesc;
+			cout << value;
+			cout << "Please enter a new value";
+			cin >> value;
+			loop = false;
+			return value;
+
 		}
 		else {
 			cout << "Invalid Selection. Please only enter the numbers listed as options";
 		}
 	}
 }
+
 //Change Push, Mitchell Dahmer, written 4/27
 //for calling the various change function, getting the current values of what is being changed, 
 //and pushing the new data when done
@@ -209,60 +214,6 @@ void pushChange(int ticketID, int line) {
 		value = "Work Entries";
 		break;
 	}
-	string currentDesc = ticketValueGrab(ticketID, line);
-	cout << "Current " << value << " for Ticket " << ticketID << "\n" << currentDesc << "\n";
-	while (loop) {
-		string newDesc = changeDescription(currentDesc);
-		cout << "New " << value << " for Ticket " << ticketID << "\n" << newDesc << "\n";
-		while (loop) {
-			cout << "Keep New " << value << " or Edit Again ? (1 for KEEP, 2 for EDIT)";
-			cin << choice;
-			if (choice == 2) {
-				loop = true;
-			}
-			else if (choice == 1) {
-				loop = false;
-			}
-			else {
-				cout << "Invalid Selection \n";
-				loop = true;
-			}
-		}
-	}
-	ticketValueReplace(ticketID, line, newDesc);
 }
 
-//Tech Change, Mitchell Dahmer, written 4/18
-string changeTech(string tech) {
-	string newTech;
-	cout << "Enter the name of new techician being assigned to the ticket";
-	cin >> newTech;
-
-	return newTech;
-}
-//Status Change, Mitchell Dahmer, written 4/18
-string changeStatus() {
-	string newStatus;
-	cout << "Please enter the new status";
-	cin >> newStatus;
-	return newStatus;
-}
-//Charge Creator, Mitchell Dahmer, written 4/18
-charge callAddCharge(ticketID) {
-	return charge;
-}
-
-//+callSubticketCreation() for calling the subticket creation process, leaving as psuedo until subticket is made
-void callSubticketCreation(ticketID) {
-	string newSubTicket = subticketCreation(ticketID);
-	subticketList.append(newSubticket);
-}
-//+ callUpdateCustomer() for calling update customer function, leaving as psuedo until subticket is made
-void callUpdateCustomer(customer) {
-	updateCustomer(customer)
-}
-//+ callAppendWork() for calling append work function, leaving as psuedo until subticket is made
-void callAppendWork(ticketID) {
-	appendWork(ticketID)
-}
 #endif

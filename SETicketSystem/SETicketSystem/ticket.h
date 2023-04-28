@@ -16,7 +16,7 @@ private:
 	string title;
 	string customer;
 	string dateCreated;
-	string repairedItem;
+	string repairedItem;pro
 
 
 public:

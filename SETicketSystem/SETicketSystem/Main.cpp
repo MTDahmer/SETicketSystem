@@ -8,7 +8,5 @@ when needed. This way all classes will exist as seperate objects*/
 #include "ticket.h"
 using namespace std;
 
-void main() {
-	//test code
-	createTicket();
+int main() {
 }

@@ -1,13 +1,7 @@
-//Ticket Class Header, Mitchell Dahmer, Written 4/18, 
+//Ticket Functions, Mitchell Dahmer, Written 4/18, 
 //Header files that holds the ticket class along with related functions
-#pragma once
-#ifndef ticket
-#define ticket
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <ctime>
-#include "charge.h"
+
+#include "ticket.h"
 
 using namespace std;
 
@@ -229,6 +223,3 @@ void pushChange(int ticketID, int line) {
 		} ticketValueReplace(ticketID, line, newValue); //send the value to the replace function to put the change into place
 	}
 }
-
-
-#endif

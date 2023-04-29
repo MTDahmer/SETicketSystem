@@ -3,7 +3,8 @@
 #define charge
 #include <string>
 #include <iostream>
-using namespace std
+#include "ticket.h"
+using namespace std;
 
 void createCharge(int ticketID) {
 	string name, price, description;

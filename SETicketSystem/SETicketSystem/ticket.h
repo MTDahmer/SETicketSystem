@@ -128,8 +128,8 @@ void ticketValueReplace(int ticketID, int line, string data) {
 	};
 	requestedFile.close(); //closes old file
 	string old = fileName + "old"; //sets up name for files removal
-	rename(fileName, old); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
-	rename(tempFileName, filename); //renames new file to match old file to transition is to being the default file
+	//rename(fileName, old); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
+	//rename(tempFileName, filename); //renames new file to match old file to transition is to being the default file
 
 }
 
@@ -205,8 +205,8 @@ void pushChange(int ticketID, int line) {
 		break;
 	}
 	string currentValue = ticketValueGrab(ticketID, line); //calls reveiw function to get current value user is wanting to edit
-	
-	while (loop1) { 
+
+	while (loop1) {
 		string newValue = changeValue(currentValue); //Calls changing function to get new value 
 		cout << "New " << value << " for Ticket " << ticketID << "\n" << newValue << "\n"; //displays user new value for checking
 		loop2 = true;//sets loop2 to true so that edit choice loop can run again after retry
@@ -226,9 +226,9 @@ void pushChange(int ticketID, int line) {
 				loop1 = true;
 				loop2 = true;
 			}
-		}
+		} ticketValueReplace(ticketID, line, newValue); //send the value to the replace function to put the change into place
 	}
-	ticketValueReplace(ticketID, line, newValue); //send the value to the replace function to put the change into place
 }
+
 
 #endif

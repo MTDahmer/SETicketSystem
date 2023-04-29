@@ -5,7 +5,8 @@
 #include <iostream>
 using namespace std;
 
-createCharge(int ticketID) {
+void createCharge(int ticketID) {
+	string name, price, description;
 	cout << "Enter name of charge: \n";
 	cin >> name;
 	cout << "Enter the cost of the charge: \n";

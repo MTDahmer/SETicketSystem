@@ -6,11 +6,11 @@ when needed. This way all classes will exist as seperate objects*/
 #include <iostream>
 #include <string>
 #include "ticket.h"
-#include <studio>
 using namespace std;
 
 
 
 int main() {
-	
+	//test code
+	createTicket();
 }

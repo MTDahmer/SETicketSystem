@@ -10,57 +10,38 @@
 #include "charge.h"
 
 using namespace std;
-class ticket {
-private:
-	int ticketID;
-	string title;
-	string customer;
-	string dateCreated;
-	string repairedItem;pro
 
-
-public:
-	string status;
-	string description;
-	vector <string> subticketList;
-	string technician;
-	vector < string> workentryList;
-	vector < string> charges;
-
-	//Ticket Constructor, Mitchell Dahmer, Written 4/20
-	// Constructor for tickets
-	//
-	ticket() {
-		cout << "Enter title of ticket: \n";
-		cin >> title;
-		cout >> "Enter a brief description of the issue: \n";
-		cin >> description;
-		cout >> "Enter the name of the customer: \n";
-		cin >> customer;
-		time_t now = time(0);
-		dateCreated = now;
-		ticketID = ticketIDGenerator(now, client);
-		cout << "Enter a description of the item to be repaired: \n";
-		cin >> repairedItem;
-		status = "Awaiting Assignment";
-		//Ticket Class Text File Workaround, Mitchell Dahmer, Written 4/25
-		//Text file creation function as work around for database integration. 
-		//stores the values of the ticket into a text file to be refrenced later
-		ofstream newTicket;
-		string ticketLocation = "/Tickets/" + ticketID;
-		newTicket.open(ticketLocation);
-		newTicket << "Title: " << title << "\n";
-		newTicket << "Customer: " << customer << "\n";
-		newTicket << "Date Created: " << now << "\n";
-		newTicket << "Status" << status << "\n";
-		newTicket << "Repaired Item: " << repairedItem << "\n";
-		newTicket << "Description: " << description << "\n";
-		newTicket << "Technician: \n";
-		newTicket << "Subtickets: \n";
-		newTicket << "Charges: \n";
-		newTicket << "Work Entries: \n";
-	}
-
+//Ticket Constructor, Mitchell Dahmer, Written 4/20, edited 4/28
+// Constructor for tickets, takes in arguments and makes a text file
+void createTicket() {
+	cout << "Enter title of ticket: \n";
+	cin >> title;
+	cout >> "Enter a brief description of the issue: \n";
+	cin >> description;
+	cout >> "Enter the name of the customer: \n";
+	cin >> customer;
+	time_t now = time(0);
+	dateCreated = now;
+	ticketID = ticketIDGenerator(now, client);
+	cout << "Enter a description of the item to be repaired: \n";
+	cin >> repairedItem;
+	status = "Awaiting Assignment";
+	//Ticket Class Text File Workaround, Mitchell Dahmer, Written 4/25
+	//Text file creation function as work around for database integration. 
+	//stores the values of the ticket into a text file to be refrenced later
+	ofstream newTicket;
+	string ticketLocation = "/Tickets/" + ticketID;
+	newTicket.open(ticketLocation);
+	newTicket << "Title: " << title << "\n";
+	newTicket << "Customer: " << customer << "\n";
+	newTicket << "Date Created: " << now << "\n";
+	newTicket << "Status" << status << "\n";
+	newTicket << "Repaired Item: " << repairedItem << "\n";
+	newTicket << "Description: " << description << "\n";
+	newTicket << "Technician: \n";
+	newTicket << "Subtickets: \n";
+	newTicket << "Charges: \n";
+	newTicket << "Work Entries: \n";
 };
 
 //ticket Information Grabber, Mitchell Dahmer, written 4/20

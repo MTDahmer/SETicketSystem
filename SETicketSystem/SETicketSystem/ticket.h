@@ -7,15 +7,15 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
-#include "charge.h"
+//#include "charge.h"
 
-void createTicket();
+int createTicket();
 
-string ticketValueGrab(int ticketID, int line);
+std::string ticketValueGrab(int ticketID, int line);
 
-void ticketValueReplace(int ticketID, int line, string data);
+void ticketValueReplace(int ticketID, int line, std::string data);
 
-string changeValue(string value);
+std::string changeValue(std::string value);
 
 void pushChange(int ticketID, int line);
 

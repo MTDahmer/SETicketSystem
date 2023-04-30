@@ -1,19 +1,10 @@
-//Ticket Functions, Mitchell Dahmer, Written 4/18, 
-//Header files that holds the ticket class along with related functions
-
 #include "ticket.h"
 
 using namespace std;
 
-int ticketIDGenerator(int data, string customer) {
-	cout << data;
-	return data;
-}
-
-
 //Ticket Constructor, Mitchell Dahmer, Written 4/20, edited 4/28
 // Constructor for tickets, takes in arguments and makes a text file
-void createTicket() {
+int createTicket() {
 	string title, description, customer, repairedItem, status;
 	int dateCreated, ticketID;
 	cout << "Enter title of ticket: \n";
@@ -24,17 +15,19 @@ void createTicket() {
 	cin >> customer;
 	time_t now = time(0);
 	dateCreated = now;
-	ticketID = ticketIDGenerator(dateCreated, customer);
+	ticketID = now;//ticketIDGenerator(dateCreated, customer);
+	//ticketID = 1;
 	cout << "Enter a description of the item to be repaired: \n";
 	cin >> repairedItem;
 	status = "Awaiting Assignment";
-	ofstream newTicket;
-	string ticketLocation = "/Tickets/" + ticketID;
-	newTicket.open(ticketLocation);
+	string ticketLocation = "C:\\Tickets\\" + to_string(ticketID);
+	ticketLocation = ticketLocation + ".txt";
+	ofstream newTicket(ticketLocation);
+	//newTicket.open(ticketLocation);
 	newTicket << "Title: " << title << "\n";
 	newTicket << "Customer: " << customer << "\n";
 	newTicket << "Date Created: " << now << "\n";
-	newTicket << "Status" << status << "\n";
+	newTicket << "Status: " << status << "\n";
 	newTicket << "Repaired Item: " << repairedItem << "\n";
 	newTicket << "Description: " << description << "\n";
 	newTicket << "Technician: \n";
@@ -42,19 +35,23 @@ void createTicket() {
 	newTicket << "Charges: \n";
 	newTicket << "Work Entries: \n";
 	newTicket.close();
+	return ticketID;
 };
 
 //ticket Information Grabber, Mitchell Dahmer, written 4/20
 //Retreives information from the given ticket at the given entry in the ticket. each line corresponds to a constant location
 //for specific information. For a key, see the ticketValueReplace function as the switch statement there corresponds to what
-//line is used for which peice of data
+//line is used for which peice of data;
 string ticketValueGrab(int ticketID, int line) {
 	ifstream requestedFile;
-	string fileName = "/Tickets/" + ticketID;
+	string fileName = "C:\\Tickets\\" + to_string(ticketID);
+	fileName = fileName + ".txt";
 	requestedFile.open(fileName); // Opens a file object that exists in the tickets folder with the requested ticketID
 	string value;
 	int count = 0;
-	while (getline(requestedFile, value)) { //starts the reading loop that continues line by line until it fines the corresponding line
+	while (getline(requestedFile, value)) {
+		//getline(requestedFile, value);
+		//cout << value;//starts the reading loop that continues line by line until it fines the corresponding line
 		if (count == line) {
 			value = value.substr(value.find(":") + 1);//Grabs the value at the determined line, then strips everything before the colon so it only grabs the info
 			requestedFile.close(); //closes files as looping is done.
@@ -62,6 +59,7 @@ string ticketValueGrab(int ticketID, int line) {
 		}
 		count++; //increases count if line not reached yet
 	};
+	requestedFile.close();
 };
 
 //ticket Information Replacer, Mitchell Dahmer, Written 4/20, edited 4/27
@@ -72,12 +70,14 @@ string ticketValueGrab(int ticketID, int line) {
 void ticketValueReplace(int ticketID, int line, string data) {
 	ifstream requestedFile;
 	ofstream newFile;
-	string fileName = "/Tickets/" + ticketID;
+	string fileName = "C:\\Tickets\\" + to_string(ticketID);
 	string tempFileName = fileName + "Temp";
-	requestedFile.open(fileName); //opens the current file being requested
+	string fileName1 = fileName + ".txt";
+	tempFileName = tempFileName + ".txt";
+	requestedFile.open(fileName1); //opens the current file being requested
 	newFile.open(tempFileName);// creates a new temporary file with a name similar to the other one for information to be copied to
 	string value;
-	int count = 0 ;
+	int count = 0;
 	string prefix;
 	switch (line) { //This switch statement is so that the new statement given to the file has the correct prefix. 
 	case 0:			//This allows us to avoid the issue of having stripped the descriptor off the original value
@@ -113,17 +113,23 @@ void ticketValueReplace(int ticketID, int line, string data) {
 	}
 	while (getline(requestedFile, value)) { //begins reading loop for the files line by line
 		if (count == line) { //Calls if its the line we are looking for
-			newFile << prefix << data; //writes the prefix decided earlier and the new information to the file
+			newFile << prefix << data << "\n"; //writes the prefix decided earlier and the new information to the file
 		}
 		else {
-			newFile << value; //Writes whatever the current value read from the files is to the same position in the file
+			newFile << value << "\n"; //Writes whatever the current value read from the files is to the same position in the file
 		}
 		count++; //ups the count for tracking purposes
 	};
-	requestedFile.close(); //closes old file
-	string old = fileName + "old"; //sets up name for files removal
-	//rename(fileName, old); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
-	//rename(tempFileName, filename); //renames new file to match old file to transition is to being the default file
+	requestedFile.close();
+	newFile.close();//closes old file
+	string old = fileName + "old";
+	old = old + ".txt";//sets up name for files removal
+	const char* oldChar = old.c_str();
+	const char* tempChar = tempFileName.c_str();
+	const char* currentChar = fileName1.c_str();
+	rename(currentChar, oldChar); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
+	rename(tempChar, currentChar); //renames new file to match old file to transition is to being the default file
+	remove(oldChar); //Deletes old file
 
 }
 

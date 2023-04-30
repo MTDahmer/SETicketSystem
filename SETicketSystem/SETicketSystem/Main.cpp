@@ -9,4 +9,7 @@ when needed. This way all classes will exist as seperate objects*/
 using namespace std;
 
 int main() {
+	cout << "Test";
+	createTicket();
+	
 }

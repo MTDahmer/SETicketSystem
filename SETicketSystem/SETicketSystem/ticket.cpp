@@ -77,7 +77,7 @@ void ticketValueReplace(int ticketID, int line, string data) {
 	requestedFile.open(fileName); //opens the current file being requested
 	newFile.open(tempFileName);// creates a new temporary file with a name similar to the other one for information to be copied to
 	string value;
-	int count;
+	int count = 0 ;
 	string prefix;
 	switch (line) { //This switch statement is so that the new statement given to the file has the correct prefix. 
 	case 0:			//This allows us to avoid the issue of having stripped the descriptor off the original value

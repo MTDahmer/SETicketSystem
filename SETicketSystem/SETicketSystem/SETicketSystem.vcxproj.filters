@@ -30,6 +30,15 @@
     <ClCompile Include="subticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="workEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExternalUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ticket.h">
@@ -45,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="charge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="internalUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="externalUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

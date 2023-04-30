@@ -141,12 +141,17 @@
   <ItemGroup>
     <ClCompile Include="charge.cpp" />
     <ClCompile Include="class defintions.cpp" />
+    <ClCompile Include="ExternalUI.cpp" />
+    <ClCompile Include="InternalUI.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="subticket.cpp" />
     <ClCompile Include="ticket.cpp" />
+    <ClCompile Include="workEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="charge.h" />
+    <ClInclude Include="externalUI.h" />
+    <ClInclude Include="internalUI.h" />
     <ClInclude Include="subticket.h" />
     <ClInclude Include="ticket.h" />
     <ClInclude Include="User.h" />

@@ -207,6 +207,7 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 		{
 			string UserLocation = "/Technician/" + newID;
 			newUser.open(UserLocation);
+			newUser << "Active Tickets: \n";
 		}
 		else
 		{
@@ -219,15 +220,11 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 	}
 	newUser << "System ID: " << newID << "\n";
 	newUser << "Name: " << name << "\n";
-	if (type == "Technician")
-	{
-		newUser << "Active Tickets: \n";
 
-	}
 	newUser.close();
 }
 
-void AdminPermission(int ticketID, string name)
+/*void AdminPermission(int ticketID, string name)
 {
 	ifstream requestedFile;
 	string fileName = "/Administrator/" + ticketID;
@@ -243,4 +240,5 @@ void AdminPermission(int ticketID, string name)
 
 		}
 	}
-}
+}*/
+

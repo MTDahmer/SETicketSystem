@@ -1,10 +1,4 @@
-#pragma once
-#ifndef subticket
-#define subticket
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <ctime>
+#include "subticket.h"
 
 using namespace std;
 

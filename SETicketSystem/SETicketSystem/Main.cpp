@@ -6,6 +6,8 @@ when needed. This way all classes will exist as seperate objects*/
 #include <iostream>
 #include <string>
 #include "ticket.h"
+#include "subticket.h"
+#include "charge.h" 
 using namespace std;
 
 int main() {

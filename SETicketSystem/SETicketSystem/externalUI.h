@@ -5,6 +5,6 @@
 #include <iostream>
 #include "ticket.h"
 
-void customerOptions();
+void customerMenu();
 
 #endif

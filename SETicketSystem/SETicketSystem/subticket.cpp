@@ -49,7 +49,3 @@ string subticketValueGrab(int subticketid, int line) {
 
 
 	};
-
-
-
-#endif // !

@@ -4,9 +4,13 @@
 #define INTERNALUI_H
 #include <string>
 #include <iostream>
+#include "ticket.h"
+#include "charge.h"
+#include "subticket.h"
+#include "workEntry.h"
 
-void permissionVerification(int ID)
+void administratorMenu();
 
-void 
+void technicianMenu();
 
 #endif

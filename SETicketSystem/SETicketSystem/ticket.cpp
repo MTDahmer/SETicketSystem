@@ -11,7 +11,7 @@ int createTicket() {
 	cin >> title;
 	cout << "Enter a brief description of the issue: \n";
 	cin >> description;
-	cout << "Enter the name of the customer: \n";
+	cout << "Enter the name of the customer ID: \n";
 	cin >> customer;
 	time_t now = time(0);
 	dateCreated = now;
@@ -137,7 +137,7 @@ void ticketValueReplace(int ticketID, int line, string data) {
 //for allowing the user to either completely rewrite or append to the end of a value
 //This function exists to handle and all changes to the ticket
 string changeValue(string value) {
-
+	cout << "Current Value: " << value;
 	cout << "Edit current value or append? \n 1. Append \n 2. Edit \n"; //
 	int choice;
 	string userEntry;

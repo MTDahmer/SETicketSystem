@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="charge.cpp" />
-    <ClCompile Include="class defintions.cpp" />
     <ClCompile Include="ExternalUI.cpp" />
     <ClCompile Include="InternalUI.cpp" />
     <ClCompile Include="Main.cpp" />

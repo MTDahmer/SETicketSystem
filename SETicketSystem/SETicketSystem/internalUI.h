@@ -1,4 +1,4 @@
-#pragma once
+//Header for interUI.cpp
 #pragma once
 #ifndef INTERNALUI_H
 #define INTERNALUI_H

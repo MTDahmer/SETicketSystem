@@ -1,3 +1,4 @@
+//Header for subticket.cpp
 #pragma once
 #ifndef subticket
 #define subticket
@@ -10,6 +11,4 @@ void createSubticket();
 	
 std::string subticketValueGrab(int subticketid, int line);
 
-
-
-#endif // !
+#endif 

@@ -200,6 +200,8 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 	{
 		string UserLocation = "/Administrator/" + newID;
 		newUser.open(UserLocation);
+		newUser << "System ID: " << newID << "\n";
+		newUser << "Name: " << name << "\n";
 	}
 	else
 	{
@@ -207,6 +209,8 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 		{
 			string UserLocation = "/Technician/" + newID;
 			newUser.open(UserLocation);
+			newUser << "System ID: " << newID << "\n";
+			newUser << "Name: " << name << "\n";
 			newUser << "Active Tickets: \n";
 		}
 		else
@@ -215,15 +219,61 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 			{
 				string UserLocation = "/Customer/" + newID;
 				newUser.open(UserLocation);
+				newUser << "System ID: " << newID << "\n";
+				newUser << "Name: " << name << "\n";
+			//fix this, need ticketID or atleast set to 0	newUser << "TicketID: " << TicketID << "\n";
 			}
 		}
 	}
-	newUser << "System ID: " << newID << "\n";
-	newUser << "Name: " << name << "\n";
+	
 
 	newUser.close();
 }
 
+void UserValueReplace(string userChoice,int UserID, int line, string data) {
+	ifstream requestedFile;
+	ofstream newFile;
+	const string userChoiceVariable = userChoice;
+	string fileName = "C:\\" + userChoiceVariable + "\\" + to_string(UserID);
+	string tempFileName = fileName + "Temp";
+	string fileName1 = fileName + ".txt";
+	tempFileName = tempFileName + ".txt";
+	requestedFile.open(fileName1); //opens the current file being requested
+	newFile.open(tempFileName); // creates a new temporary file with a name similar to the other one for information to be copied to
+	string value;
+	int count = 0;
+	string prefix;
+	switch (line) {
+	case 0:
+		prefix = "SystemID ";
+		break;
+	case 1:
+		prefix = "Name ";
+		break;
+	case 2:
+		prefix = "ActiveTickets ";
+		break;
+	}
+	while (getline(requestedFile, value)) { //begins reading loop for the files line by line
+		if (count == line) { //Calls if its the line we are looking for
+			newFile << prefix << data << "\n"; //writes the prefix decided earlier and the new information to the file
+		}
+		else {
+			newFile << value << "\n"; //Writes whatever the current value read from the files is to the same position in the file
+		}
+		count++; //ups the count for tracking purposes
+	};
+	requestedFile.close();
+	newFile.close();//closes old file
+	string old = fileName + "old";
+	old = old + ".txt";//sets up name for files removal
+	const char* oldChar = old.c_str();
+	const char* tempChar = tempFileName.c_str();
+	const char* currentChar = fileName1.c_str();
+	rename(currentChar, oldChar); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
+	rename(tempChar, currentChar); //renames new file to match old file to transition is to being the default file
+	remove(oldChar); //Deletes old file
+}
 /*void AdminPermission(int ticketID, string name)
 {
 	ifstream requestedFile;
@@ -241,4 +291,16 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 		}
 	}
 }*/
+bool userVerify(string userChoice, int userID)//do this 
+{
+	 {
+		string fileName = "C:\\" + userChoice + "\\" + to_string(userID);
+		ifstream file(fileName);
+		return file.good();
+	}
+}
 
+void DeleteEmployee(int userID, string userChoice)
+{
+
+}

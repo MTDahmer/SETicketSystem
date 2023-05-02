@@ -20,7 +20,7 @@ int createTicket() {
 	cout << "Enter a description of the item to be repaired: \n";
 	cin >> repairedItem;
 	status = "Awaiting Assignment";
-	string ticketLocation = "C:\\Tickets\\" + to_string(ticketID);
+	string ticketLocation = "C:\\TicketSystem\\Tickets\\" + to_string(ticketID);
 	ticketLocation = ticketLocation + ".txt";
 	ofstream newTicket(ticketLocation);
 	//newTicket.open(ticketLocation);
@@ -35,6 +35,15 @@ int createTicket() {
 	newTicket << "Charges: \n";
 	newTicket << "Work Entries: \n";
 	newTicket.close();
+	try { //adds new ticket to customers list of tickets
+		string tempTickets;
+		tempTickets = userValueGrab("Customer", stoi(customer), 2); //grabs current ticket value
+		tempTickets = ", " + ticketID; //adds ticket to the end of the list
+		UserValueReplace("Customer", stoi(customer), 2, tempTickets);
+	}
+	catch (...) {
+		cout << "Customer ID does not match any current customer";
+	}
 	return ticketID;
 };
 
@@ -44,7 +53,7 @@ int createTicket() {
 //line is used for which peice of data;
 string ticketValueGrab(int ticketID, int line) {
 	ifstream requestedFile;
-	string fileName = "C:\\Tickets\\" + to_string(ticketID);
+	string fileName = "C:\\TicketSystem\\Tickets\\" + to_string(ticketID);
 	fileName = fileName + ".txt";
 	requestedFile.open(fileName); // Opens a file object that exists in the tickets folder with the requested ticketID
 	string value;
@@ -70,7 +79,7 @@ string ticketValueGrab(int ticketID, int line) {
 void ticketValueReplace(int ticketID, int line, string data) {
 	ifstream requestedFile;
 	ofstream newFile;
-	string fileName = "C:\\Tickets\\" + to_string(ticketID);
+	string fileName = "C:\\TicketSystem\\Tickets\\" + to_string(ticketID);
 	string tempFileName = fileName + "Temp";
 	string fileName1 = fileName + ".txt";
 	tempFileName = tempFileName + ".txt";

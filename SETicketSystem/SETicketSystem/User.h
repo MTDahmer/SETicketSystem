@@ -2,17 +2,19 @@
 #ifndef USER_H
 #define USER_H
 #include <string>
-#include <fstream>
+#include <cstdio>
 #include <iostream>
+#include <fstream>
+using namespace std;
 
+void EnterANewUser(string type);
 
-std::string WhatTypeofUser();
-std::string NameofUser();
 int getNextEmployeeID();
 
-void EnterANewUser(std::string f, std::string g, int(*h)());
+bool DeleteEmployee(string userChoice, int userID);
+void UserValueReplace(string userChoice, int UserID, int line, string data);
+string userValueGrab(string userChoice, int userID, int line);
+bool userVerify(string userChoice, int userID);
+void userReadWholeFile(string userChoice, int userID);
 
-
-void AdminPermission(int ticketID, std::string name);
-
-#endif
+#endif // !1

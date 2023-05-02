@@ -11,6 +11,6 @@
 
 void administratorMenu();
 
-void technicianMenu();
+void technicianMenu(int userID);
 
 #endif

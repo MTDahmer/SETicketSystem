@@ -111,12 +111,31 @@ void administratorMenu() {
 			createSubticket();
 		}
 		else if (userChoice == 5) {//Creates new technician
+			EnterANewUser("Technician");
 		}
 		else if (userChoice == 6) {//Create new customer
+			EnterANewUser("Customer");
 		}
 		else if (userChoice == 7) {//Creates new administrator
+			EnterANewUser("Administrator");
 		}
 		else if (userChoice == 8) {//Fire employee
+			int userID, check;
+			bool loop8;
+			while (loop8) {
+				cout << "Please enter the ID of the employee to terminate: \n";
+				cin >> userID; //Gets id
+				cout << "VERIFY: DELETE USER " << userID << "? \n Reenter ID to continue \n";
+				cin >> check; //double checks id
+				if (check == userID) { //if id's match, call delete function
+					DeleteEmployee("Technician", userID);
+					loop8 = false;
+				}
+				else {
+					cout << "Please Try Again \n";
+					loop8 = true;
+				}
+			}
 		}
 		else if (userChoice == 9) { //Calls the ticketCreation
 			int ticketID9 = createTicket();
@@ -144,7 +163,7 @@ void technicianMenu(int userID) {
 			loop = false;
 		}
 		else if (userChoice == 0) { //Retreive current technicians active tickets
-			showUserFile(2, userID);
+			userReadWholeFile("Technician", userID);
 		}
 		else if (userChoice == 1) {//Add work entry to ticket
 			bool loop1 = true;
@@ -225,7 +244,7 @@ void technicianMenu(int userID) {
 				cout << "Please enter the ID of the user you are looking for \n";
 				cin >> userID5;
 				try {
-					showUserFile(3, userID5);
+					userReadWholeFile("Customer", userID5);
 					loop5 = false;
 				}
 				catch (...) {

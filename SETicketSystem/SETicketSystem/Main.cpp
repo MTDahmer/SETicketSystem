@@ -26,7 +26,7 @@ int main() {
 		else if (userChoice == 1) { //Administrator Login Verify
 			cout << "Please enter your administrator ID \n";
 			cin >> userID;
-			if (userVerify(userChoice, userID)) { //Calls Verify
+			if (userVerify(to_string(userChoice), userID)) { //Calls Verify
 				administratorMenu(); //If verify passes, open the menu
 			}
 			else {
@@ -37,7 +37,7 @@ int main() {
 		else if (userChoice == 2) {//Technician Login Verify
 			cout << "please enter your Technician ID \n";
 			cin >> userID;
-			if (userVerify(userChoice, userID)) {
+			if (userVerify(to_string(userChoice), userID)) {
 				technicianMenu(userID);
 			}
 			else {
@@ -48,8 +48,8 @@ int main() {
 		else if (userChoice == 3) {// Customer Login Verify
 			cout << "please enter your Customer ID \n";
 			cin >> userID;
-			if (userVerify(userChoice, userID)) {
-				customerMenu();
+			if (userVerify(to_string(userChoice), userID)) {
+				customerMenu(userID);
 			}
 			else {
 				cout << "Invalid Customer ID \n";

@@ -5,7 +5,8 @@
 #include <string>
 #include <iostream>
 #include "ticket.h"
+#include "user.h"
 
-void customerMenu();
+void customerMenu(int userID);
 
 #endif

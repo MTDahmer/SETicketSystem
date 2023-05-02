@@ -20,7 +20,7 @@ void createSubticket() {
 	cout << "Enter additional work needed: \n";
 	cin >> additionalrepaired; //takes in a new item description if needed
 	ofstream newSubTicket;
-	string ticketLocation = "C:\\SubTickets\\" + to_string(subticketid);
+	string ticketLocation = "C:\\TicketSystem\\SubTickets\\" + to_string(subticketid);
 	ticketLocation = ticketLocation + ".txt"; //Creates new empty document
 
 	newSubTicket.open(ticketLocation); //opens and writes all info to the new document
@@ -37,7 +37,7 @@ void createSubticket() {
 //For retreiving needed information from subtickets
 string subticketValueGrab(int subticketid, int line) {
 		ifstream requestedFile;
-		string fileName = "C:\\SubTickets\\" + to_string(subticketid);
+		string fileName = "C:\\TicketSystem\\SubTickets\\" + to_string(subticketid);
 		fileName = fileName + ".txt";
 		requestedFile.open(fileName);
 		string value;
@@ -60,7 +60,7 @@ string subticketValueGrab(int subticketid, int line) {
 void ticketValueReplace(int subticketID, int line, string data) {
 	ifstream requestedFile;
 	ofstream newFile;
-	string fileName = "C:\\SubTickets\\" + to_string(subticketID);
+	string fileName = "C:\\TicketSystem\\SubTickets\\" + to_string(subticketID);
 	string tempFileName = fileName + "Temp";
 	string fileName1 = fileName + ".txt";
 	tempFileName = tempFileName + ".txt";

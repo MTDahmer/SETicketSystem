@@ -1,209 +1,59 @@
-/*#include "User.h"
-//#include <iostream>
-//#include <string>
-using namespace std;
-
-
-//User initialization and assosciated functions for Users
-
-User::User(string Name, int PhoneNumber, string Email)
-	: Name(Name),
-	Email(Email),
-	PhoneNumber(PhoneNumber)
-
-{}
-
-//getter for user NAME
-string User::getName() const {
-	return Name;
-}
-
-//setter for user NAME
-void User::setName(string newName)
-{
-	Name = newName;
-}
-
-//getter for user PhoneNumber
-int User::getPhoneNumber()
-{
-	return PhoneNumber;
-}
-
-//setter for user Phonenumber
-void User::setPhoneNumber(int newNumber)
-{
-	PhoneNumber = newNumber;
-}
-
-//getter for Email
-string User::getEmail()
-{
-	return Email;
-}
-
-//setter for Email
-void User::setEmail(string newEmail)
-{
-	Email = newEmail;
-}
-
-
-//Worker   initialization and assosciated functions for Users
-
-
-
-Worker::Worker(string Name, int PhoneNumber, string Email)
-	: User(Name,PhoneNumber,Email)
-{
-
-}
-//Name getter for Worker
-string Worker::getName()
-{
-	return User::getName();
-}
-//Name setter for Worker
-void  Worker::setName(string newName)
-{
-	User::setName(newName);
-}
-
-//PhoneNumber getter for Worker
-int Worker::getPhoneNumber()
-{
-	return User::getPhoneNumber();
-}
-
-//PhoneNumber setter for Worker
-void Worker::setPhoneNumber(int newNumber)
-{
-	User::setPhoneNumber(newNumber);
-}
-
-//email getter for Worker
-
-string Worker::getEmail()
-{
-	return User::getEmail();
-}
-
-//email setter for Worker
-void Worker::setEmail(string newEmail)
-{
-	User::setEmail(newEmail);
-}
-
- /*Repair technician section
-
-RepairTechnician::RepairTechnician(string Name, int PhoneNumber, string Email, int TechnicianID, int TechnicianActiveTickets)
-	: User(Name, PhoneNumber, Email)
-{
-
-}*/
-
 #include "user.h"
 
 using namespace std;
 
-string WhatTypeofUser()
-{
-	string TypeOfUser;
-	string y = "y";
-	string n = "n";
-	cout << "Are you an administrator? y/n\n";
-	cin >> TypeOfUser;
-	if (TypeOfUser == y) {
-		TypeOfUser = "Administrator";
-		return TypeOfUser;
-	}
-	else
-	{
-		cout << "Are you an technician? y/n\n";
-		cin >> TypeOfUser;
 
-		if (TypeOfUser == y)
-		{
-			TypeOfUser = "Technician";
-			return TypeOfUser;
-		}
-		else
-		{
-			cout << "Are you an customer? y/n\n";
-			cin >> TypeOfUser;
-
-			if (TypeOfUser == y)
-			{
-				TypeOfUser = "Customer";
-				return TypeOfUser;
-
-			}
-			else {
-				TypeOfUser = "not found";
-				return TypeOfUser;
-			}
-		}
-	}
-}
-
-string NameofUser()
-{
-	string NameofUser;
-	cout << "What is your name ? \n";
-	cin >> NameofUser;
-	return NameofUser;
-}
-int getNextEmployeeID() {
-	std::ifstream inputFile("ID counter.txt");
+int getNextEmployeeID() {//able to have a file that returns a unique ID for each new user, uses incremental system to ensure parity
+	std::ifstream inputFile("IDcounter.txt"); //we have a file that is only used for this function, create it or return error code
 	if (!inputFile.is_open()) {
-		std::cerr << "Error: Failed to open file 'ID counter.txt'" << std::endl;
+		std::cerr << "Error: Failed to open file 'IDcounter.txt'" << std::endl;
 		return -1;
 	}
 
 	string idString;
-	getline(inputFile, idString); // Read the current ID from the file
-	inputFile.close();
+	getline(inputFile, idString); // Read the current ID from the file, store it into idString temporarily
+	inputFile.close(); //done with .txt file
 
 	int id = stoi(idString); // Convert the ID string to an integer
 	++id; // Increment the ID
 
-	std::ofstream outputFile("ID counter.txt");
+	std::ofstream outputFile("IDcounter.txt"); // reopen the file, this may be an oversight to close and reopen, but we'll keep this for now and in theory can fix this in the future
 	if (!outputFile.is_open()) {
-		std::cerr << "Error: Failed to open file 'ID counter.txt'" << std::endl;
+		std::cerr << "Error: Failed to open file 'IDcounter.txt'" << std::endl;
 		return -1;
 	}
 
 	outputFile << id << std::endl; // Write the new ID to the file
 	outputFile.close();
 
-	return id;
+	return id;//ultimately we were able to open, increment the ID, use it, and then return a copy to the .txt file
 }
 
-void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
+void EnterANewUser(string type)
 {
 
-	string ID;
-	string ActiveTickets;
+	string ID, ActiveTickets, name;
+	cout << "Please enter the name of the new user \n";
+	cin >> name;
+	
+	int newID = getNextEmployeeID(); //must call  getNextEmployeeID()
 
-	string type = f();
-	string name = g();
-	int newID = h();
 	//when calling in main use EnteraNewUsername(WhatTypeofUser,NameofUser)
 	//get the return of type and name so we can put into a text file
 	//start of making text file
 	ofstream newUser;
-	if (type == "Administrator")
+	if (type == "Administrator")//nested if else statement to check  what type of user you are
 	{
-		string UserLocation = "/Administrator/" + newID;
+		string UserLocation = "C:\\TicketSystem\\Administrator\\" + to_string(newID) + ".txt";//saves UserLocation as the .txt file 
 		newUser.open(UserLocation);
-		newUser << "System ID: " << newID << "\n";
+		newUser << "System ID: " << newID << "\n";//each if statement will have its own statements for creating system ID and name, because the JOB title is necessary  to open the file, can't have one generic "user.txt system ID: name :"
 		newUser << "Name: " << name << "\n";
 	}
-	else
+	else//if user not found it moves on to the next etc etc
 	{
 		if (type == "Technician")
 		{
-			string UserLocation = "/Technician/" + newID;
+			string UserLocation = "C:\\TicketSystem\\Technician\\" + to_string(newID) + ".txt";
 			newUser.open(UserLocation);
 			newUser << "System ID: " << newID << "\n";
 			newUser << "Name: " << name << "\n";
@@ -213,24 +63,38 @@ void EnterANewUser(string(*f)(), string(*g)(), int(*h)())
 		{
 			if (type == "Customer")
 			{
-				string UserLocation = "/Customer/" + newID;
+				string UserLocation = "C:\\TicketSystem\\Customer\\" + to_string(newID) + ".txt";
+				string PhoneNumber;
+				string Email;
+				cout << "May I have your phone number in 'xxx-xxx-xxxx' Format ? " << endl;
+				cin >> PhoneNumber;
+				cout << "May I have your Email?" << endl;
+				cin >> Email;
 				newUser.open(UserLocation);
 				newUser << "System ID: " << newID << "\n";
 				newUser << "Name: " << name << "\n";
-			//fix this, need ticketID or atleast set to 0	newUser << "TicketID: " << TicketID << "\n";
+				newUser << "Active Tickets: \n";
+				newUser << "Phone Number: " << PhoneNumber << "\n";
+				newUser << "Email: " << Email << "\n";
+
+
+			}
+			else
+			{
+				cout << "Error couldn't Create a new User";
 			}
 		}
 	}
-	
+
 
 	newUser.close();
 }
 
-void UserValueReplace(string userChoice,int UserID, int line, string data) {
+void UserValueReplace(string userChoice, int UserID, int line, string data) {
 	ifstream requestedFile;
 	ofstream newFile;
 	const string userChoiceVariable = userChoice;
-	string fileName = "C:\\" + userChoiceVariable + "\\" + to_string(UserID);
+	string fileName = "C:\\TicketSystem\\" + userChoiceVariable + "\\" + to_string(UserID);
 	string tempFileName = fileName + "Temp";
 	string fileName1 = fileName + ".txt";
 	tempFileName = tempFileName + ".txt";
@@ -241,13 +105,19 @@ void UserValueReplace(string userChoice,int UserID, int line, string data) {
 	string prefix;
 	switch (line) {
 	case 0:
-		prefix = "SystemID ";
+		prefix = "SystemID: ";
 		break;
 	case 1:
-		prefix = "Name ";
+		prefix = "Name: ";
 		break;
 	case 2:
-		prefix = "ActiveTickets ";
+		prefix = "Active Tickets: ";
+		break;
+	case 3:
+		prefix = "Phone Number: ";
+		break;
+	case 4:
+		prefix = "Email: ";
 		break;
 	}
 	while (getline(requestedFile, value)) { //begins reading loop for the files line by line
@@ -270,33 +140,59 @@ void UserValueReplace(string userChoice,int UserID, int line, string data) {
 	rename(tempChar, currentChar); //renames new file to match old file to transition is to being the default file
 	remove(oldChar); //Deletes old file
 }
-/*void AdminPermission(int ticketID, string name)
-{
-	ifstream requestedFile;
-	string fileName = "/Administrator/" + ticketID;
-	// convert ticketID to string or convert string into INT
-	requestedFile.open(fileName);
-	string TempHold;
-	string ticketID_string = to_string(ticketID);
-	int count = 0;
-	while (getline(requestedFile, TempHold))
-	{
-		if (count == 0) {
-			if
 
+string userValueGrab(string userChoice, int userID, int line) {
+	ifstream requestedFile;
+	string fileName = "C:\\TicketSystem\\" + userChoice + "\\" + to_string(userID);
+	fileName = fileName + ".txt";
+	requestedFile.open(fileName); // Opens a file object that exists in the tickets folder with the requested ticketID
+	string value;
+	int count = 0;
+	while (getline(requestedFile, value)) {
+		//getline(requestedFile, value);
+		//cout << value;//starts the reading loop that continues line by line until it fines the corresponding line
+		if (count == line) {
+			value = value.substr(value.find(":") + 1);//Grabs the value at the determined line, then strips everything before the colon so it only grabs the info
+			requestedFile.close(); //closes files as looping is done.
+			return value; //return value stops here
 		}
-	}
-}*/
-bool userVerify(string userChoice, int userID)//do this 
+		count++; //increases count if line not reached yet
+	};
+	requestedFile.close();
+};
+
+bool userVerify(string userChoice, int userID)//simple check if a file exist, because if the customer can enter a Title and an ID it is good enough for this first iteration
 {
-	 {
-		string fileName = "C:\\" + userChoice + "\\" + to_string(userID);
+	{
+		string fileName = "C:\\TicketSystem\\" + userChoice + "\\" + to_string(userID) + ".txt";
 		ifstream file(fileName);
 		return file.good();
 	}
 }
 
-void DeleteEmployee(int userID, string userChoice)
+bool DeleteEmployee(string userChoice, int userID)
 {
-
+	string fileName = "C:\\TicketSystem\\" + userChoice + "\\" + to_string(userID) + ".txt";//find and delete a file, in the future we want to have a method to push active tickets into an "assignment" object for replacement of the technician
+	int result = std::remove(fileName.c_str());
+	return (result == 0);
 }
+
+void userReadWholeFile(string userChoice, int userID)
+{
+	string fileName = "C:\\TicketSystem\\" + userChoice + "\\" + to_string(userID) + ".txt";//cout's an entire document for easily readability
+
+	ifstream file(fileName);
+	string line;
+
+	if (file.is_open()) {
+		while (getline(file, line)) {
+			// Do something with each line, such as printing it to the console
+			cout << line << '\n';
+		}
+		file.close();
+	}
+	else {
+		cout << "Unable to open file " << fileName << '\n';
+	}
+}
+

@@ -105,3 +105,4 @@ void ticketValueReplace(int subticketID, int line, string data) {
 	rename(currentChar, oldChar); //renames the old file to indicate that its been deprecated, doubles as a handy change tracking system for the software
 	rename(tempChar, currentChar); //renames new file to match old file to transition is to being the default file
 	remove(oldChar);
+}

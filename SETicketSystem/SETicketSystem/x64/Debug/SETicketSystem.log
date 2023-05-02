@@ -1,0 +1,3 @@
+﻿  InternalUI.cpp
+C:\Users\Main\source\repos\SETicketSystem\SETicketSystem\SETicketSystem\InternalUI.cpp(72,8): warning C4101: 'ticketID2': unreferenced local variable
+C:\Users\Main\source\repos\SETicketSystem\SETicketSystem\SETicketSystem\InternalUI.cpp(155): fatal  error C1075: '{': no matching token found

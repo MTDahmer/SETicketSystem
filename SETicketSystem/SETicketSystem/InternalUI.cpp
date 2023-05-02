@@ -23,14 +23,19 @@ void administratorMenu() {
 		}
 		else if (userChoice == 0) {	//Views a user
 			int jobNumber, userID0;
+			string jobType;
 			bool loop0 = true;
 			while (loop0) { //Loop foir input validation
 				cout << "Please select what type of user to view \n 1. Administrator \n 2. Technician \n 3. Customer";
 				cin >> jobNumber; //Takes in user's role
+				if (jobNumber == 1) { jobType = "Administrator"; }
+				else if (jobNumber == 2) { jobType = "Technician"; }
+				else if (jobNumber == 3) { jobType = "Customer"; }
 				cout << "Please enter the ID of the user you are looking for \n";
 				cin >> userID0;//takes in the user's id
 				try {
-					if (showUserFile(jobNumber, userID0)) {//sends it to function that verifies if the user exists in that roles
+					if (userVerify(jobType, userID0)) {//sends it to function that verifies if the user exists in that roles
+						userReadWholeFile(jobType, userID0);
 						loop0 = false;
 					}//ends if call is succsessful
 					else {
@@ -53,7 +58,7 @@ void administratorMenu() {
 					pushChange(ticketID1, 6); //Send the ticketID and line number for technicians to change the value of that ticket (rest of replacement handled in other fucntions)
 					cout << "Please enter the ID of the user assigned";
 					cin >> userID1; //Takes in userID
-					UserValueReplace(userID1, 2, ticketID1); //Sends ticketID, userID, and line number to function that will add ticket to technicians active tickets
+					UserValueReplace("Technician", userID1, 2, to_string(ticketID1)); //Sends ticketID, userID, and line number to function that will add ticket to technicians active tickets
 					loop1 = false;
 				}
 				catch (...) {
@@ -252,6 +257,4 @@ void technicianMenu(int userID) {
 				}
 			}
 		}
-		}
 	}
-}

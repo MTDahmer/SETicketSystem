@@ -4,26 +4,24 @@ using namespace std;
 
 
 int getNextEmployeeID() {//able to have a file that returns a unique ID for each new user, uses incremental system to ensure parity
-	std::ifstream inputFile("IDcounter.txt"); //we have a file that is only used for this function, create it or return error code
-	if (!inputFile.is_open()) {
-		std::cerr << "Error: Failed to open file 'IDcounter.txt'" << std::endl;
-		return -1;
-	}
-
+	ifstream inputFile;
+	ofstream outputFile;
+	string filePath = "C:\\TicketSystem\\IDcounter.txt";
+	int id = 1;
 	string idString;
+	inputFile.open(filePath);
 	getline(inputFile, idString); // Read the current ID from the file, store it into idString temporarily
-	inputFile.close(); //done with .txt file
 
-	int id = stoi(idString); // Convert the ID string to an integer
-	++id; // Increment the ID
-
-	std::ofstream outputFile("IDcounter.txt"); // reopen the file, this may be an oversight to close and reopen, but we'll keep this for now and in theory can fix this in the future
-	if (!outputFile.is_open()) {
-		std::cerr << "Error: Failed to open file 'IDcounter.txt'" << std::endl;
-		return -1;
+	if (idString.empty()) {
+		id = 1;
 	}
-
-	outputFile << id << std::endl; // Write the new ID to the file
+	else {
+		id = stoi(idString); // Convert the ID string to an integer
+		++id; // Increment the ID
+	}
+	inputFile.close();
+	outputFile.open(filePath);
+	outputFile << id; // Write the new ID to the file
 	outputFile.close();
 
 	return id;//ultimately we were able to open, increment the ID, use it, and then return a copy to the .txt file
@@ -34,7 +32,8 @@ void EnterANewUser(string type)
 
 	string ID, ActiveTickets, name;
 	cout << "Please enter the name of the new user \n";
-	cin >> name;
+	cin.ignore();
+	getline(cin, name);
 	
 	int newID = getNextEmployeeID(); //must call  getNextEmployeeID()
 
@@ -44,49 +43,43 @@ void EnterANewUser(string type)
 	ofstream newUser;
 	if (type == "Administrator")//nested if else statement to check  what type of user you are
 	{
-		string UserLocation = "C:\\TicketSystem\\Administrator\\" + to_string(newID) + ".txt";//saves UserLocation as the .txt file 
+		string UserLocation = "C:\\TicketSystem\\Administrator\\" + to_string(newID);
+		UserLocation  = UserLocation + ".txt";//saves UserLocation as the .txt file 
 		newUser.open(UserLocation);
 		newUser << "System ID: " << newID << "\n";//each if statement will have its own statements for creating system ID and name, because the JOB title is necessary  to open the file, can't have one generic "user.txt system ID: name :"
 		newUser << "Name: " << name << "\n";
 	}
-	else//if user not found it moves on to the next etc etc
+	else if (type == "Technician") // if user not found it moves on to the next etc etc
 	{
-		if (type == "Technician")
-		{
-			string UserLocation = "C:\\TicketSystem\\Technician\\" + to_string(newID) + ".txt";
-			newUser.open(UserLocation);
-			newUser << "System ID: " << newID << "\n";
-			newUser << "Name: " << name << "\n";
-			newUser << "Active Tickets: \n";
-		}
-		else
-		{
-			if (type == "Customer")
-			{
-				string UserLocation = "C:\\TicketSystem\\Customer\\" + to_string(newID) + ".txt";
-				string PhoneNumber;
-				string Email;
-				cout << "May I have your phone number in 'xxx-xxx-xxxx' Format ? " << endl;
-				cin >> PhoneNumber;
-				cout << "May I have your Email?" << endl;
-				cin >> Email;
-				newUser.open(UserLocation);
-				newUser << "System ID: " << newID << "\n";
-				newUser << "Name: " << name << "\n";
-				newUser << "Active Tickets: \n";
-				newUser << "Phone Number: " << PhoneNumber << "\n";
-				newUser << "Email: " << Email << "\n";
-
-
-			}
-			else
-			{
-				cout << "Error couldn't Create a new User";
-			}
-		}
+		string UserLocation = "C:\\TicketSystem\\Technician\\" + to_string(newID);
+		UserLocation = UserLocation + ".txt";
+		newUser.open(UserLocation);
+		newUser << "System ID: " << newID << "\n";
+		newUser << "Name: " << name << "\n";
+		newUser << "Active Tickets: \n";
 	}
-
-
+	else if (type == "Customer")
+	{
+		string UserLocation = "C:\\TicketSystem\\Customer\\" + to_string(newID);
+		UserLocation = UserLocation + ".txt";
+		string PhoneNumber;
+		string Email;			
+		cout << "May I have your phone number in 'xxx-xxx-xxxx' Format ? " << endl;
+		cin.ignore();
+		getline(cin, PhoneNumber);
+		cout << "May I have your Email?" << endl;
+		cin >> Email;
+		newUser.open(UserLocation);
+		newUser << "System ID: " << newID << "\n";
+		newUser << "Name: " << name << "\n";
+		newUser << "Active Tickets: \n";
+		newUser << "Phone Number: " << PhoneNumber << "\n";
+		newUser << "Email: " << Email << "\n";
+	}
+	else
+	{
+		cout << "Error couldn't Create a new User";
+	}
 	newUser.close();
 }
 

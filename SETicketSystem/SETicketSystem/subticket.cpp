@@ -7,20 +7,22 @@ using namespace std;
 //Creates the subticket document and adds the subticket id onto the list of subtickets for the requested ticket
 void createSubticket() {
 	int ticketid;
-	int subticketid;
+	string subticketid;
 	int datecreated;
 	string additionalrepaired, status;
 	cout << "Enter the Main Ticket ID: \n";
 	cin >> ticketid; //Take in the main ticket id
 	cout << "Enter the Sub Ticket ID: \n";
-	cin >> subticketid; //User creates the subticketID
+	cin.ignore();
+	getline(cin, subticketid); //User creates the subticketID
 	time_t now = (0);
 	datecreated = now; //Pulls the current date
 	status = "Currently being worked on"; //Sets status
 	cout << "Enter additional work needed: \n";
-	cin >> additionalrepaired; //takes in a new item description if needed
+	cin.ignore();
+	getline(cin, additionalrepaired); //takes in a new item description if needed
 	ofstream newSubTicket;
-	string ticketLocation = "C:\\TicketSystem\\SubTickets\\" + to_string(subticketid);
+	string ticketLocation = "C:\\TicketSystem\\SubTickets\\" + subticketid;
 	ticketLocation = ticketLocation + ".txt"; //Creates new empty document
 
 	newSubTicket.open(ticketLocation); //opens and writes all info to the new document

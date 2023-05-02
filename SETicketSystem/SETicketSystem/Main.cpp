@@ -18,7 +18,7 @@ int main() {
 	bool loop = true;
 	cout << "Welcome to the Placeholder Repair Shop ticketing system! \n";
 	while (loop) { //Starts input validation loop
-		cout << "Please select what role to login as : \n 1. Administrator \n 2. Technician \n 3. Customer \n Enter 0 to exit";
+		cout << "Please select what role to login as : \n 1. Administrator \n 2. Technician \n 3. Customer \n Enter 0 to exit \n";
 		cin >> userChoice; //Takes user's login choice
 		if (userChoice == 0) { //Exits loop
 			cout << "Have a nice day!";
@@ -38,6 +38,7 @@ int main() {
 		}
 		else if (userChoice == 2) {//Technician Login Verify
 			cout << "please enter your Technician ID \n";
+			cin >> userID;
 			jobType = "Technician";
 			if (userVerify(jobType, userID)) {
 				technicianMenu(userID);

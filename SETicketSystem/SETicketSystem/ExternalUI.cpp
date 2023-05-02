@@ -23,16 +23,16 @@ void customerMenu(int userID) {
 				cin >> choice0; //takes in ticketID
 				cout << "Ticket " << choice0 << endl;
 				try {
-					cout << "Title:" << ticketValueGrab(choice0, 0); //Displays all entries in ticket
-					cout << "Customer:" << ticketValueGrab(choice0, 1);
-					cout << "Date Created:" << ticketValueGrab(choice0, 2);
-					cout << "Status:" << ticketValueGrab(choice0, 3);
-					cout << "Repaired Item:" << ticketValueGrab(choice0, 4);
-					cout << "Description:" << ticketValueGrab(choice0, 5);
-					cout << "Technician:" << ticketValueGrab(choice0, 6);
-					cout << "Subtickets:" << ticketValueGrab(choice0, 7);
-					cout << "Charges:" << ticketValueGrab(choice0, 8);
-					cout << "Work Entries:" << ticketValueGrab(choice0, 9);
+					cout << "Title:" << ticketValueGrab(choice0, 0) << endl; //Displays all entries in ticket
+					cout << "Customer:" << ticketValueGrab(choice0, 1) << endl;
+					cout << "Date Created:" << ticketValueGrab(choice0, 2) << endl;
+					cout << "Status:" << ticketValueGrab(choice0, 3) << endl;
+					cout << "Repaired Item:" << ticketValueGrab(choice0, 4) << endl;
+					cout << "Description:" << ticketValueGrab(choice0, 5) << endl;
+					cout << "Technician:" << ticketValueGrab(choice0, 6) << endl;
+					cout << "Subtickets:" << ticketValueGrab(choice0, 7) << endl;
+					cout << "Charges:" << ticketValueGrab(choice0, 8) << endl;
+					cout << "Work Entries:" << ticketValueGrab(choice0, 9) << endl;
 					loop0 = false;
 				}
 				catch (...) {
@@ -42,7 +42,7 @@ void customerMenu(int userID) {
 		}
 		else if (choice == 1) { //Calls the userValueGrab to get the users currently open tickets
 			try {
-				cout << "Current Tickets: " << userValueGrab("Customer", userID, 2);
+				cout << "Current Tickets: " << userValueGrab("Customer", userID, 2) << endl;
 			}
 			catch (...) {
 				cout << "No Currently Open Tickets \n";

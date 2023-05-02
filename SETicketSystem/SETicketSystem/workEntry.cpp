@@ -14,7 +14,8 @@ void wEntry (int ticketID) {
     cout << "Enter the number of minutes worked: \n";
     cin >> minutes;
     cout << "Enter description of work: \n";
-    cin >> description; //Fills the variables needed for a work entry through user prompt
+    cin.ignore();
+    getline(cin, description); //Fills the variables needed for a work entry through user prompt
     string cWork = ticketValueGrab(ticketID, 9); //Retreies the current list of work entry from the requested ticket
     string updateWork = cWork + "[" + date + ", " + to_string(minutes) + " minutes, " + description + "], "; //adds the new work entry onto the back of the current list
     ticketValueReplace(ticketID, 9, updateWork); //sends the new list to be written to the ticket

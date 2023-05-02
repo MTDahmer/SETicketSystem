@@ -8,11 +8,14 @@ using namespace std;
 void createCharge(int ticketID) {
 	string name, price, description;
 	cout << "Enter name of charge: \n";
-	cin >> name; //takes in name
+	cin.ignore();
+	getline(cin, name); //takes in name
 	cout << "Enter the cost of the charge: \n";
-	cin >> price; //takes in price
+	cin.ignore();
+	getline(cin, price); //takes in price
 	cout << "Enter a description of the charge \n";
-	cin >> description; //takes in description
+	cin.ignore();
+	getline(cin, description); //takes in description
 	string currentCharges = ticketValueGrab(ticketID, 8); //gets the current list of charges from the requested ticket
 	string newCharge = currentCharges + "[" + name + ", " + price + ", " + description + "], "; //adds the new charge to the charge list while formatting it
 	ticketValueReplace(ticketID, 8, newCharge); //Sends new charge list to the replace function for the ticket requested

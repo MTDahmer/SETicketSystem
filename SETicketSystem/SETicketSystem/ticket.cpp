@@ -8,9 +8,11 @@ int createTicket() {
 	string title, description, customer, repairedItem, status;
 	int dateCreated, ticketID;
 	cout << "Enter title of ticket: \n";
-	cin >> title;
+	cin.ignore();
+	getline(cin, title);
 	cout << "Enter a brief description of the issue: \n";
-	cin >> description;
+	cin.ignore();
+	getline(cin, description);
 	cout << "Enter the name of the customer ID: \n";
 	cin >> customer;
 	time_t now = time(0);
@@ -18,7 +20,8 @@ int createTicket() {
 	ticketID = now;//ticketIDGenerator(dateCreated, customer);
 	//ticketID = 1;
 	cout << "Enter a description of the item to be repaired: \n";
-	cin >> repairedItem;
+	cin.ignore();
+	getline(cin, repairedItem);
 	status = "Awaiting Assignment";
 	string ticketLocation = "C:\\TicketSystem\\Tickets\\" + to_string(ticketID);
 	ticketLocation = ticketLocation + ".txt";
@@ -38,11 +41,11 @@ int createTicket() {
 	try { //adds new ticket to customers list of tickets
 		string tempTickets;
 		tempTickets = userValueGrab("Customer", stoi(customer), 2); //grabs current ticket value
-		tempTickets = ", " + ticketID; //adds ticket to the end of the list
+		tempTickets = tempTickets + to_string(ticketID) + ", "; //adds ticket to the end of the list
 		UserValueReplace("Customer", stoi(customer), 2, tempTickets);
 	}
 	catch (...) {
-		cout << "Customer ID does not match any current customer";
+		cout << "Customer ID does not match any current customer \n";
 	}
 	return ticketID;
 };
@@ -146,7 +149,7 @@ void ticketValueReplace(int ticketID, int line, string data) {
 //for allowing the user to either completely rewrite or append to the end of a value
 //This function exists to handle and all changes to the ticket
 string changeValue(string value) {
-	cout << "Current Value: " << value;
+	cout << "Current Value: " << value << endl;
 	cout << "Edit current value or append? \n 1. Append \n 2. Edit \n"; //
 	int choice;
 	string userEntry;
@@ -155,20 +158,22 @@ string changeValue(string value) {
 	while (loop) { //verification while loop to make sure user enters the correct info
 		if (choice == 1) {
 			cout << "Please enter the statement to append to the current value \n";
-			cin >> userEntry;
+			cin.ignore();
+			getline(cin, userEntry);
 			value = value + " " + userEntry; //takes users entry, adds a space for formatting and replaces the value with the concatenated version
 			loop = false; //ends loop
 			return value; //returns new value to function
 		}
 		else if (choice == 2) {
-			cout << "Please enter a new value";
-			cin >> value; //in contrast to other function, replaces the value outright
+			cout << "Please enter a new value \n";
+			cin.ignore();
+			getline(cin, value); //in contrast to other function, replaces the value outright
 			loop = false;//closes loop
 			return value;// returns replaced value
 
 		}
 		else { //continues loop if user chooses incorrectly
-			cout << "Invalid Selection. Please only enter the numbers listed as options";
+			cout << "Invalid Selection. Please only enter the numbers listed as options \n";
 		}
 	}
 }
@@ -216,11 +221,12 @@ void pushChange(int ticketID, int line) {
 	string currentValue = ticketValueGrab(ticketID, line); //calls reveiw function to get current value user is wanting to edit
 
 	while (loop1) {
+		cout << "Changing " << value << endl;
 		string newValue = changeValue(currentValue); //Calls changing function to get new value 
 		cout << "New " << value << " for Ticket " << ticketID << "\n" << newValue << "\n"; //displays user new value for checking
 		loop2 = true;//sets loop2 to true so that edit choice loop can run again after retry
 		while (loop2) {
-			cout << "Keep New " << value << " or Edit Again ? (1 for KEEP, 2 for EDIT)"; //Allows user to restart if mistakes were made
+			cout << "Keep New " << value << " or Edit Again ? (1 for KEEP, 2 for EDIT) \n"; //Allows user to restart if mistakes were made
 			cin >> choice;
 			if (choice == 2) { //if user wants to restart, this sends back to the front of the loop and lets them try again
 				loop1 = true;

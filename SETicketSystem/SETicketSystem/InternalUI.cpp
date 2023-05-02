@@ -4,8 +4,8 @@
 //For presenting administrators with the options available to them and calling the needed functions
 void administratorMenu() {
 	bool loop = true;
-	int userChoice;
 	while (loop) {  // Loop for allowing the user to do as much as needed while logged in
+		int userChoiceA;
 		cout << "What would you like to do? (enter -1 to exit) \n"; //Presents the user with the availble options for Administrators
 		cout << "0. View User \n";
 		cout << "1. Assign Technician to ticket \n";
@@ -17,11 +17,11 @@ void administratorMenu() {
 		cout << "7. Create Administrator User \n";
 		cout << "8. Fire Technician \n";
 		cout << "9. Create Ticket \n"; 
-		cin >> userChoice;
-		if (userChoice == -1) { //Closes Loop
+		cin >> userChoiceA;
+		if (userChoiceA == -1) { //Closes Loop
 			loop = false;
 		}
-		else if (userChoice == 0) {	//Views a user
+		else if (userChoiceA == 0) {	//Views a user
 			int jobNumber, userID0;
 			string jobType;
 			bool loop0 = true;
@@ -47,7 +47,7 @@ void administratorMenu() {
 				}
 			}
 		}
-		else if (userChoice == 1) { //Assigns a technician to the ticket
+		else if (userChoiceA == 1) { //Assigns a technician to the ticket
 			bool(loop1) = true;
 			int ticketID1, userID1;
 			while (loop1) {
@@ -56,7 +56,7 @@ void administratorMenu() {
 					cout << "Please enter the ID of the ticket you wish to assign a technician to \n";
 					cin >> ticketID1; //takes in the requested ticket
 					pushChange(ticketID1, 6); //Send the ticketID and line number for technicians to change the value of that ticket (rest of replacement handled in other fucntions)
-					cout << "Please enter the ID of the user assigned";
+					cout << "Please enter the ID of the user assigned\n";
 					cin >> userID1; //Takes in userID
 					UserValueReplace("Technician", userID1, 2, to_string(ticketID1)); //Sends ticketID, userID, and line number to function that will add ticket to technicians active tickets
 					loop1 = false;
@@ -67,7 +67,7 @@ void administratorMenu() {
 
 			}
 		}
-		else if (userChoice == 2) {  //blanket ticket edit
+		else if (userChoiceA == 2) {  //blanket ticket edit
 			bool(loop2) = true;
 			int ticketID2, line;
 			while (loop2) { //input validation loop
@@ -87,7 +87,7 @@ void administratorMenu() {
 				}
 			}
 		}
-		else if (userChoice == 3) { //displays full ticket
+		else if (userChoiceA == 3) { //displays full ticket
 			int ticketID3;
 			bool loop3 = true;
 			while (loop3) { //input validation loop
@@ -95,16 +95,16 @@ void administratorMenu() {
 				cin >> ticketID3; //takes in requested ticket
 				cout << "Ticket " << ticketID3 << endl;
 				try {
-					cout << "Title:" << ticketValueGrab(ticketID3, 0); //Goes through every entry in the ticket and prints it our
-					cout << "Customer:" << ticketValueGrab(ticketID3, 1);
-					cout << "Date Created:" << ticketValueGrab(ticketID3, 2);
-					cout << "Status:" << ticketValueGrab(ticketID3, 3);
-					cout << "Repaired Item:" << ticketValueGrab(ticketID3, 4);
-					cout << "Description:" << ticketValueGrab(ticketID3, 5);
-					cout << "Technician:" << ticketValueGrab(ticketID3, 6);
-					cout << "Subtickets:" << ticketValueGrab(ticketID3, 7);
-					cout << "Charges:" << ticketValueGrab(ticketID3, 8);
-					cout << "Work Entries:" << ticketValueGrab(ticketID3, 9);
+					cout << "Title:" << ticketValueGrab(ticketID3, 0) << endl; //Goes through every entry in the ticket and prints it our
+					cout << "Customer:" << ticketValueGrab(ticketID3, 1) << endl;
+					cout << "Date Created:" << ticketValueGrab(ticketID3, 2) << endl;
+					cout << "Status:" << ticketValueGrab(ticketID3, 3) << endl;
+					cout << "Repaired Item:" << ticketValueGrab(ticketID3, 4) << endl;
+					cout << "Description:" << ticketValueGrab(ticketID3, 5) << endl;
+					cout << "Technician:" << ticketValueGrab(ticketID3, 6) << endl;
+					cout << "Subtickets:" << ticketValueGrab(ticketID3, 7) << endl;
+					cout << "Charges:" << ticketValueGrab(ticketID3, 8) << endl;
+					cout << "Work Entries:" << ticketValueGrab(ticketID3, 9) << endl;
 					loop3 = false;
 				}
 				catch (...) {
@@ -112,21 +112,22 @@ void administratorMenu() {
 				}
 			}
 		}
-		else if (userChoice == 4) { //Calls the subticketCreation
+		else if (userChoiceA == 4) { //Calls the subticketCreation
 			createSubticket();
 		}
-		else if (userChoice == 5) {//Creates new technician
+		else if (userChoiceA == 5) {//Creates new technician
 			EnterANewUser("Technician");
+			loop = true;
 		}
-		else if (userChoice == 6) {//Create new customer
+		else if (userChoiceA == 6) {//Create new customer
 			EnterANewUser("Customer");
 		}
-		else if (userChoice == 7) {//Creates new administrator
+		else if (userChoiceA == 7) {//Creates new administrator
 			EnterANewUser("Administrator");
 		}
-		else if (userChoice == 8) {//Fire employee
+		else if (userChoiceA == 8) {//Fire employee
 			int userID, check;
-			bool loop8;
+			bool loop8 = true;
 			while (loop8) {
 				cout << "Please enter the ID of the employee to terminate: \n";
 				cin >> userID; //Gets id
@@ -142,7 +143,7 @@ void administratorMenu() {
 				}
 			}
 		}
-		else if (userChoice == 9) { //Calls the ticketCreation
+		else if (userChoiceA == 9) { //Calls the ticketCreation
 			int ticketID9 = createTicket();
 			cout << "Ticket " << ticketID9 << " has been successfully created and stored"; //displays new ticketID
 		}
@@ -154,8 +155,9 @@ void administratorMenu() {
 
 void technicianMenu(int userID) {
 	bool loop = true;
-	int userChoice;
+	int userChoiceT;
 	while (loop) { //input validation loop
+		userChoiceT = 0;
 		cout << "What would you like to do? (enter -1 to exit) \n"; //Present options to users
 		cout << "0. Get Active Tickets \n";
 		cout << "1. Add work entry to ticket\n";
@@ -163,14 +165,15 @@ void technicianMenu(int userID) {
 		cout << "3. View ticket\n";
 		cout << "4. Edit ticket status \n";
 		cout << "5. View Customer \n";
-		cin >> userChoice;
-		if (userChoice == -1) { //close loop
+		cout << "6. View subticket\n";
+		cin >> userChoiceT;
+		if (userChoiceT == -1) { //close loop
 			loop = false;
 		}
-		else if (userChoice == 0) { //Retreive current technicians active tickets
+		else if (userChoiceT == 0) { //Retreive current technicians active tickets
 			userReadWholeFile("Technician", userID);
 		}
-		else if (userChoice == 1) {//Add work entry to ticket
+		else if (userChoiceT == 1) {//Add work entry to ticket
 			bool loop1 = true;
 			int ticketID1;
 			while (loop1) { //validation loop
@@ -185,7 +188,7 @@ void technicianMenu(int userID) {
 				}
 			}
 		}
-		else if (userChoice == 2) { //Add charge to ticket
+		else if (userChoiceT == 2) { //Add charge to ticket
 			bool loop2 = true;
 			int ticketID2;
 			while (loop2) {
@@ -200,7 +203,7 @@ void technicianMenu(int userID) {
 				}
 			}
 		}
-		else if (userChoice == 3) {//display entire ticket
+		else if (userChoiceT == 3) {//display entire ticket
 			int ticketID3;
 			bool loop3 = true;
 			while (loop3) {
@@ -208,16 +211,16 @@ void technicianMenu(int userID) {
 				cin >> ticketID3;
 				cout << "Ticket " << ticketID3 << endl;
 				try {
-					cout << "Title:" << ticketValueGrab(ticketID3, 0);
-					cout << "Customer:" << ticketValueGrab(ticketID3, 1);
-					cout << "Date Created:" << ticketValueGrab(ticketID3, 2);
-					cout << "Status:" << ticketValueGrab(ticketID3, 3);
-					cout << "Repaired Item:" << ticketValueGrab(ticketID3, 4);
-					cout << "Description:" << ticketValueGrab(ticketID3, 5);
-					cout << "Technician:" << ticketValueGrab(ticketID3, 6);
-					cout << "Subtickets:" << ticketValueGrab(ticketID3, 7);
-					cout << "Charges:" << ticketValueGrab(ticketID3, 8);
-					cout << "Work Entries:" << ticketValueGrab(ticketID3, 9);
+					cout << "Title:" << ticketValueGrab(ticketID3, 0) << endl;
+					cout << "Customer:" << ticketValueGrab(ticketID3, 1) << endl;
+					cout << "Date Created:" << ticketValueGrab(ticketID3, 2) << endl;
+					cout << "Status:" << ticketValueGrab(ticketID3, 3) << endl;
+					cout << "Repaired Item:" << ticketValueGrab(ticketID3, 4) << endl;
+					cout << "Description:" << ticketValueGrab(ticketID3, 5) << endl;
+					cout << "Technician:" << ticketValueGrab(ticketID3, 6) << endl;
+					cout << "Subtickets:" << ticketValueGrab(ticketID3, 7) << endl;
+					cout << "Charges:" << ticketValueGrab(ticketID3, 8) << endl;
+					cout << "Work Entries:" << ticketValueGrab(ticketID3, 9) << endl;
 					loop3 = false;
 				}
 				catch (...) {
@@ -225,7 +228,7 @@ void technicianMenu(int userID) {
 				}
 			}
 		}
-		else if (userChoice == 4) { //Push a change to the status of a ticket
+		else if (userChoiceT == 4) { //Push a change to the status of a ticket
 			bool(loop4) = true;
 			int ticketID4;
 			while (loop4) {
@@ -242,7 +245,7 @@ void technicianMenu(int userID) {
 
 			}
 		}
-		else if (userChoice == 5) { //Shows all information for a customer
+		else if (userChoiceT == 5) { //Shows all information for a customer
 			int userID5;
 			bool loop5 = true;
 			while (loop5) {
@@ -254,6 +257,31 @@ void technicianMenu(int userID) {
 				}
 				catch (...) {
 					cout << "Invalid Selection \n";
+				}
+			}
+		}
+		else if (userChoiceT == 6) {//display entire subticket
+			int ticketID6;
+			bool loop6 = true;
+			while (loop6) {
+				cout << "Please enter the ticket ID that you would like to check " << endl;
+				cin >> ticketID6;
+				cout << "Ticket " << ticketID6 << endl;
+				try {
+					cout << "Title:" << subticketValueGrab(ticketID6, 0) << endl;
+					cout << "Customer:" << subticketValueGrab(ticketID6, 1) << endl;
+					cout << "Date Created:" << subticketValueGrab(ticketID6, 2) << endl;
+					cout << "Status:" << subticketValueGrab(ticketID6, 3) << endl;
+					cout << "Repaired Item:" << subticketValueGrab(ticketID6, 4) << endl;
+					cout << "Description:" << subticketValueGrab(ticketID6, 5) << endl;
+					cout << "Technician:" << subticketValueGrab(ticketID6, 6) << endl;
+					cout << "Subtickets:" << subticketValueGrab(ticketID6, 7) << endl;
+					cout << "Charges:" << subticketValueGrab(ticketID6, 8) << endl;
+					cout << "Work Entries:" << subticketValueGrab(ticketID6, 9) << endl;
+					loop6 = false;
+				}
+				catch (...) {
+					cout << "Invalid Ticket ID";
 				}
 			}
 		}

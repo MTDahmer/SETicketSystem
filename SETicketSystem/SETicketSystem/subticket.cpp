@@ -57,7 +57,7 @@ string subticketValueGrab(int subticketid, int line) {
 //File be completely rewritten rather than changing the singular line, so a function has been made to identify the needed
 //change location, and begin replicating the file until the point is reached, at which time the new info is entered in and
 // and the duplication continues next line
-void ticketValueReplace(int subticketID, int line, string data) {
+void subticketValueReplace(int subticketID, int line, string data) {
 	ifstream requestedFile;
 	ofstream newFile;
 	string fileName = "C:\\TicketSystem\\SubTickets\\" + to_string(subticketID);

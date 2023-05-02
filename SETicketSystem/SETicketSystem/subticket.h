@@ -10,5 +10,6 @@
 void createSubticket();
 	
 std::string subticketValueGrab(int subticketid, int line);
+void subticketValueReplace(int subticketID, int line, std::string data);
 
 #endif 

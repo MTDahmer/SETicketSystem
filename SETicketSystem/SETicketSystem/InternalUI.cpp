@@ -72,14 +72,14 @@ void administratorMenu() {
 			int ticketID2, line;
 			while (loop2) { //input validation loop
 				string NewTech;
-				int ticketID;
+				int ticketID2;
 				cout << "Please enter the ID of the ticket you wish to edit \n";
-				cin >> ticketID; //takes in ticketID
+				cin >> ticketID2; //takes in ticketID
 				cout << "What value would you like to edit? \n";
 				cout << "0.Title \n 1. Customer \n 2. Date Created \n 3. Status \n 4. Repaired Item \n 5. Description \n 6. Technician \n 7. Subtickets \n 8. Charges \n 9. Work Entries "; 
 				try {
 					cin >> line; //Takes in users requested edit
-					pushChange(ticketID, line); //Pashes ticket id and chosen edit to other function
+					pushChange(ticketID2, line); //Pashes ticket id and chosen edit to other function
 					loop2 = false;
 				}
 				catch (...) {
@@ -258,3 +258,4 @@ void technicianMenu(int userID) {
 			}
 		}
 	}
+}

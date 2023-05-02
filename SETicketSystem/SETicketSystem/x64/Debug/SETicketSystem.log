@@ -1,3 +1,8 @@
 ﻿  InternalUI.cpp
 C:\Users\Main\source\repos\SETicketSystem\SETicketSystem\SETicketSystem\InternalUI.cpp(72,8): warning C4101: 'ticketID2': unreferenced local variable
-C:\Users\Main\source\repos\SETicketSystem\SETicketSystem\SETicketSystem\InternalUI.cpp(155): fatal  error C1075: '{': no matching token found
+  Main.cpp
+  subticket.cpp
+C:\Users\Main\source\repos\SETicketSystem\SETicketSystem\SETicketSystem\subticket.cpp(18,16): warning C4244: '=': conversion from 'time_t' to 'int', possible loss of data
+  Generating Code...
+C:\Users\Main\source\repos\SETicketSystem\SETicketSystem\SETicketSystem\subticket.cpp(53): warning C4715: 'subticketValueGrab': not all control paths return a value
+  SETicketSystem.vcxproj -> C:\Users\Main\Source\Repos\SETicketSystem\SETicketSystem\x64\Debug\SETicketSystem.exe
